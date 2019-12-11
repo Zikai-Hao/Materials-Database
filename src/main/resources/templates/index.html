@@ -1,0 +1,1126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:margin="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Materials Yare Database</title>
+    <style>
+        body {
+            background: #fffdfa;
+        }
+    </style>
+    <#include "layui.html">
+    <link rel="stylesheet" href="./Materials Project_files/nucleus.5db1710fde48.css" charset="utf-8">
+    <script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
+
+</head>
+<br><br><br><br><br>
+<div class="layui-container">
+    <div class="layui-row">
+
+        <div class="layui-col-md4" style="left: 40%;">
+            <img src="/images/MYDB.png">
+        </div>
+    </div>
+    <br><br>
+    <form class="layui-form" action="/search" method='post' name='form1'>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">元素</label>
+            <div class="layui-input-block">
+                <input type="text" name="keyword" id="mytext" required lay-verify="required" placeholder="搜索材料..点击下方添加元素"
+                       autocomplete="off"
+                       class="layui-input" value="">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-col-md4">
+                <label class="layui-form-label">磁性</label>
+                <div class="layui-input-block">
+                    <select name="city" >
+                        <option value=""></option>
+                        <option value="0">有磁性</option>
+                        <option value="1">无磁性</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-col-md4">
+                <div class="layui-inline">
+                    <label class="layui-form-label">范围</label>
+                    <div class="layui-input-inline" style="width: 100px;">
+                        <input type="text" name="price_min" placeholder="eV" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 100px;">
+                        <input type="text" name="price_max" placeholder="eV" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md4">
+                <div class="layui-inline">
+                    <label class="layui-form-label">范围</label>
+                    <div class="layui-input-inline" style="width: 100px;">
+                        <input type="text" name="price_min" placeholder="eV" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 100px;">
+                        <input type="text" name="price_max" placeholder="eV" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="checkbox" name="like[write]" title="条件1">
+                <input type="checkbox" name="like[read]" title="条件2" checked>
+                <input type="checkbox" name="like[dai]" title="条件3">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="left: 35%;">
+                <button class="layui-btn" lay-submit lay-filter="formDemo" >立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+    <script src="/layui/layui.js"></script>
+    <script>
+        //Demo
+        layui.use('form', function () {
+            var form = layui.form;
+
+            //监听提交
+            form.on('submit(formDemo)', function (data) {
+                layer.msg(JSON.stringify(data.field));
+            });
+        });
+    </script>
+
+    <div class="layui-row">
+        <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" color=#987cb9 SIZE=3>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-container">
+            <div class="layui-row">
+                <header>
+                    <script>
+                        function addEle(e) {
+                            ele = $(e).text() + "-";
+                            document.getElementById("mytext").value += ele;
+                        }
+                    </script>
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="span10" id="main-content">
+                                <div id="searchfield">
+
+
+                                    <section id="pt-section" style="">
+                                        <div class="pt-wrapper" id="elements">
+                                            <div class="periodic-row"><!-- Row One -->
+                                                <div class="element-non-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">1</i>
+                                                            <strong class="symbol" onclick="addEle(this)">H</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-noble-gas">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">2</i>
+                                                            <strong class="symbol" onclick="addEle(this)">He</strong>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div><!-- //Row One -->
+
+                                            <div class="periodic-row"><!-- Row Two -->
+                                                <div class="element-alkali-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">3</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Li</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-alkali-earth-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">4</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Be</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-metalloid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">5</i>
+                                                            <strong class="symbol" onclick="addEle(this)">B</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-non-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">6</i>
+                                                            <strong class="symbol" onclick="addEle(this)">C</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-non-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">7</i>
+                                                            <strong class="symbol" onclick="addEle(this)">N</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-non-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">8</i>
+                                                            <strong class="symbol" onclick="addEle(this)">O</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-halogen">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">9</i>
+                                                            <strong class="symbol" onclick="addEle(this)">F</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-noble-gas">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">10</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ne</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- //Row Two -->
+
+                                            <div class="periodic-row"><!-- Row Three -->
+                                                <div class="element-alkali-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">11</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Na</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-alkali-earth-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">12</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Mg</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">13</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Al</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metalloid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">14</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Si</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-non-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">15</i>
+                                                            <strong class="symbol" onclick="addEle(this)">P</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-non-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">16</i>
+                                                            <strong class="symbol" onclick="addEle(this)">S</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-halogen">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">17</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Cl</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-noble-gas">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">18</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ar</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- //Row Three -->
+
+                                            <div class="periodic-row"><!-- Row Four -->
+                                                <div class="element-alkali-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">19</i>
+                                                            <strong class="symbol" onclick="addEle(this)">K</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-alkali-earth-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">20</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ca</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">21</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Sc</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">22</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ti</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">23</i>
+                                                            <strong class="symbol" onclick="addEle(this)">V</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">24</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Cr</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">25</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Mn</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">26</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Fe</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">27</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Co</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">28</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ni</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">29</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Cu</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">30</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Zn</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">31</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ga</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metalloid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">32</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ge</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metalloid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">33</i>
+                                                            <strong class="symbol" onclick="addEle(this)">As</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-non-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">34</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Se</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-halogen">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">35</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Br</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-noble-gas">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">36</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Kr</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- //Row Four -->
+
+                                            <div class="periodic-row"><!-- Row Five -->
+                                                <div class="element-alkali-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">37</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Rb</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-alkali-earth-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">38</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Sr</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">39</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Y</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">40</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Zr</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">41</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Nb</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">42</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Mo</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">43</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Tc</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">44</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ru</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">45</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Rh</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">46</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Pd</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">47</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ag</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">48</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Cd</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">49</i>
+                                                            <strong class="symbol" onclick="addEle(this)">In</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">50</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Sn</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metalloid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">51</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Sb</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metalloid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">52</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Te</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-halogen">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">53</i>
+                                                            <strong class="symbol" onclick="addEle(this)">I</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-noble-gas">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">54</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Xe</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- //Row Five -->
+
+                                            <div class="periodic-row"><!-- Row Six -->
+                                                <div class="element-alkali-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">55</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Cs</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-alkali-earth-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">56</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ba</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthanoid-transitional-metal">
+                                                    <div class="chip long">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">57-71</i>
+                                                            <strong class="symbol">La-Lu</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">72</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Hf</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">73</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ta</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">74</i>
+                                                            <strong class="symbol" onclick="addEle(this)">W</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">75</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Re</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">76</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Os</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">77</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ir</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">78</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Pt</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">79</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Au</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">80</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Hg</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">81</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Tl</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metal">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">82</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Pb</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metalloid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">83</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Bi</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-metalloid">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">84</i>
+                                                            <strong class="symbol">Po</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-halogen">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">85</i>
+                                                            <strong class="symbol">At</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-noble-gas">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">86</i>
+                                                            <strong class="symbol">Rn</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- //Row Six -->
+
+                                            <div class="periodic-row"><!-- Row Seven -->
+                                                <div class="element-alkali-metal">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">87</i>
+                                                            <strong class="symbol">Fr</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-alkali-earth-metal">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">88</i>
+                                                            <strong class="symbol">Ra</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid-transitional-metal">
+                                                    <div class="chip long">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">89-103</i>
+                                                            <strong class="symbol">Ac-Lr</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">104</i>
+                                                            <strong class="symbol">Rf</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">105</i>
+                                                            <strong class="symbol">Db</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">106</i>
+                                                            <strong class="symbol">Sg</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">107</i>
+                                                            <strong class="symbol">Bh</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">108</i>
+                                                            <strong class="symbol">Hs</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">109</i>
+                                                            <strong class="symbol">Mt</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">110</i>
+                                                            <strong class="symbol">Ds</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">111</i>
+                                                            <strong class="symbol">Rg</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-transition-metal">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">112</i>
+                                                            <strong class="symbol">Cn</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- //Row Seven -->
+
+                                            <div class="element-blank full"></div>
+
+                                            <div class="periodic-row"><!-- Row Eight -->
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">57</i>
+                                                            <strong class="symbol" onclick="addEle(this)">La</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">58</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ce</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">59</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Pr</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">60</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Nd</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">61</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Pm</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">62</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Sm</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">63</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Eu</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">64</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Gd</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">65</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Tb</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">66</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Dy</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">67</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ho</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">68</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Er</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">69</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Tm</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">70</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Yb</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-lanthoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">71</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Lu</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-blank"></div>
+
+                                            </div><!-- //Row Eight -->
+
+                                            <div class="periodic-row"><!-- Row Nine -->
+                                                <div class="element-blank"></div>
+                                                <div class="element-blank"></div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">89</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Ac</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">90</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Th</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">91</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Pa</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">92</i>
+                                                            <strong class="symbol" onclick="addEle(this)">U</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">93</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Np</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front">
+                                                            <i class="hidden-phone">94</i>
+                                                            <strong class="symbol" onclick="addEle(this)">Pu</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">95</i>
+                                                            <strong class="symbol">Am</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">96</i>
+                                                            <strong class="symbol">Cm</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">97</i>
+                                                            <strong class="symbol">Bk</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">98</i>
+                                                            <strong class="symbol">Cf</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">99</i>
+                                                            <strong class="symbol">Es</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">100</i>
+                                                            <strong class="symbol">Fm</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">101</i>
+                                                            <strong class="symbol">Md</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">102</i>
+                                                            <strong class="symbol">No</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="element-actinoid">
+                                                    <div class="chip">
+                                                        <div class="face front disabled">
+                                                            <i class="hidden-phone">103</i>
+                                                            <strong class="symbol">Lr</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- //Row Nine -->
+                                        </div><!-- //pt-wrapper -->
+
+                                    </section>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <script id="user-token" type="application/json">"5dea15cb9b2adf000f542e50"</script>
+
+                    </div>
+                </header>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</html>
