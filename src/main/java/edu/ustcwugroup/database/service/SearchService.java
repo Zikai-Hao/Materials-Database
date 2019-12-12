@@ -1,5 +1,6 @@
 package edu.ustcwugroup.database.service;
 
+import edu.ustcwugroup.database.dao.MoleculeDAO;
 import edu.ustcwugroup.database.dao.SearchDAO;
 import edu.ustcwugroup.database.model.Molecule;
 import edu.ustcwugroup.database.model.ViewObject;
@@ -21,10 +22,10 @@ import java.util.Map;
 @Service
 public class SearchService {
     @Autowired
-    SearchDAO searchDAO;
+    MoleculeDAO moleculeDAO;
 
     public List<Molecule> selectTest(List<Integer> culeIds,int count){
-        return searchDAO.selectCules(culeIds,count);
+        return moleculeDAO.selectCules(culeIds,count);
     }
 
     private static final String SOLR_UPL="http://47.101.159.122:8983/solr/group";
@@ -47,7 +48,7 @@ public class SearchService {
         for (Map.Entry<String, Map<String, List<String>>> entry : response.getHighlighting().entrySet()) {
             Molecule cule = new Molecule();
             cule.setId(Integer.parseInt(entry.getKey()));
-            cule = searchDAO.selectMolecule(cule.getId());
+            cule = moleculeDAO.selectMolecule(cule.getId());
             if (entry.getValue().containsKey(Elements)) {
                 List<String> eleList = entry.getValue().get(Elements);
                 if (eleList.size() > 0) {

@@ -1,23 +1,23 @@
 <#include "layui.html">
-<form class="layui-form" action="">
+<form class="layui-form" action="/adminDataEdit/">
 
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">id</label>
             <div class="layui-input-inline">
-                <input name="id" lay-verify="required" readonly="" autocomplete="off" class="layui-input" type="text">
+                <input id="id" name="id" lay-verify="required" readonly="" autocomplete="off" class="layui-input" type="text">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">元素</label>
             <div class="layui-input-inline">
-                <input name="elments" lay-verify="required" autocomplete="off" class="layui-input" type="text">
+                <input id="elements" name="elements" lay-verify="required" autocomplete="off" class="layui-input" type="text">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">化学式</label>
             <div class="layui-input-inline">
-                <input name="formula" lay-verify="required" autocomplete="off" class="layui-input" type="text">
+                <input id="formula" name="formula" lay-verify="required" autocomplete="off" class="layui-input" type="text">
             </div>
         </div>
 
@@ -41,7 +41,7 @@
         //监听提交
         form.on('submit(editStudent)', function(data){ //这块要跟表单中的lay-filter="editStudent"对应
             $.ajax({
-                url: "/dataEdit",
+                url: "/adminDataEdit/",
                 type: "post",
                 async: false,   //不要让它异步提交
                 data: data.field,

@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="layui-container">
-    <table class="layui-hide" id="test" lay-filter="test"></table>
+    <table class="layui-hide" id="test" lay-filter="admin"></table>
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -22,8 +22,8 @@
 </div>
 
 <script src="/layui/layui.js"></script>
-<script>
 
+<script>
     layui.use('table', function(){
         var table = layui.table;
 
@@ -51,6 +51,7 @@
             },
 
         });
+
         //监听行单击事件（双击事件为：rowDouble）
         table.on('row(test)', function(obj){
             var data = obj.data;
@@ -63,10 +64,9 @@
             obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
         });
         //监听行工具事件
-        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+        table.on('tool(admin)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据（json格式的键值对）
-                ,layEvent = obj.event //获得 lay-event 对应的值（编辑、删除、添加）
-                ,map={}; //存放获取到的那条json数据中的value值（不放key）
+                ,layEvent = obj.event; //获得 lay-event 对应的值（编辑、删除、添加）
             if(layEvent === 'edit'){
                 //脚本编辑弹出层
                 var name = encodeURIComponent(data.toolName);
@@ -78,15 +78,14 @@
                     shade: 0.8,
                     maxmin: true,
                     area: ['70%', '70%'],
-                    content: '/dataEdit?toolSceneId='+data.toolSceneId+'&'+'id='+data.id,//设置你要弹出的jsp页面
+                    content: '/dataEdit?id='+data.id,//设置你要弹出的jsp页面
                     success: function(layero, index){
                         var body = layer.getChildFrame('body', index);
                         var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
-                        var inputList = body.find("input");//获取到子窗口的所有的input标签
-                        for (var i = 0; i < inputList.length; i++ ) {
-                            var item = inputList[i].name;
-                            $(inputList[i]).val(data.id); //遍历子窗口的input标签，将之前数组中的值一次放入显示
-                        }
+                        $.each(data,function(key,value) {//循环遍历json数据
+                            value=String(value).replace(/<em>/g,"").replace(/<\/em>/g,"");
+                            $(body.find("#"+key)).val(value);
+                        });
                     }
                 });
             }
