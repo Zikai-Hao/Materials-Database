@@ -67,4 +67,14 @@ public class SearchController {
         return "adminsearch";
     }
 
+    @RequestMapping({"/detail"})
+    public String detail(Model model){
+        try {
+            //model.addAttribute("keyword",);
+        }catch (Exception e){
+            logger.error("keyword搜索失败"+e.getMessage());
+        }
+        return "resultDetail";
+    }
+
 }
