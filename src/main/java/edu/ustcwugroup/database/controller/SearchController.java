@@ -2,6 +2,7 @@ package edu.ustcwugroup.database.controller;
 
 import edu.ustcwugroup.database.model.Molecule;
 import edu.ustcwugroup.database.model.ViewObject;
+import edu.ustcwugroup.database.service.CIFReadService;
 import edu.ustcwugroup.database.service.SearchService;
 import edu.ustcwugroup.database.util.JsonUtil;
 import org.apache.ibatis.annotations.Param;
@@ -27,6 +28,9 @@ public class SearchController {
 
     @Autowired
     SearchService searchService;
+
+    @Autowired
+    CIFReadService cifReadService;
 
     @RequestMapping({"/result"})
     @ResponseBody
@@ -70,7 +74,7 @@ public class SearchController {
     @RequestMapping({"/detail"})
     public String detail(Model model){
         try {
-            //model.addAttribute("keyword",);
+            model.addAttribute("cif",cifReadService.CIFRead("F:\\job\\POSCAR.cif"));
         }catch (Exception e){
             logger.error("keyword搜索失败"+e.getMessage());
         }
