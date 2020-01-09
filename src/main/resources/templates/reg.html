@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mydb注册</title>
+    <#include "layui.html">
+    <style>
+        body {
+            background: #fffdfa;
+        }
+    </style>
+
+    <script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript">
+        var reg = /^[a-zA-Z]\w*$/;
+        var flag1 = false, flag2 = false, flag3 = false;
+
+
+
+        function chang2(obj) {
+            var pwd = obj.value;
+            if (pwd.length < 6 || pwd.length > 15) {
+                //alert("密码要求3-8位！");
+                document.getElementById("ps1").innerHTML = "<font color='red'>密码要求6-15位！</font>";
+                flag2 = false;
+            } else {
+                document.getElementById("ps1").innerHTML = "<font color='green'>可以使用</font>";
+                flag2 = true;
+            }
+        }
+
+        function chang3(obj) {
+            var pwd1 = obj.value;
+            var pwd = document.getElementById("password").value;
+            if (pwd1.length < 6 || pwd1.length > 15) {
+                //alert("密码要求3-8位！");
+                document.getElementById("ps2").innerHTML = "<font color='red'>密码要求6-15位！</font>";
+            } else if (pwd != pwd1) {
+                //alert("两次输入密码不一致！");
+                document.getElementById("ps2").innerHTML = "<font color='red'>两次输入密码不一致！</font>";
+                flag3 = false;
+            } else {
+                document.getElementById("ps2").innerHTML = "<font color='green'>可以使用</font>";
+                flag3 = true;
+            }
+        }
+
+    </script>
+</head>
+<body>
+<script src="/layui/layui.js"></script>
+<ul class="layui-nav" lay-filter="">
+    <li class="layui-nav-item"><a href="">登录</a></li>
+    <li class="layui-nav-item layui-this"><a href="">注册</a></li>
+    <li class="layui-nav-item" style="float: right;"><a href="">联系我们</a></li>
+</ul>
+<#if msg??>
+<input type="hidden" id="msg" value='${msg}'>
+<#else>
+<input type="hidden" id="msg" value=''>
+</#if>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function () {
+        var element = layui.element;
+
+        //…
+    });
+    var msg=$("#msg").val()
+    layui.use('layer',function(){
+    if(msg!=null)
+        layer.msg(msg, {
+            time: 1500, //1500ms后自动关闭
+
+        })
+    });
+</script>
+<div class="layui-row layui-col-space10">
+    <div class="layui-col-md4">
+
+    </div>
+    <div class="layui-col-md4">
+        <div class="layui-row">
+            <div class="layui-col-md4" style="left: 35%;">
+                <img src="/images/MYDB.png">
+            </div>
+
+        </div>
+        <form class="layui-form" action="/reg/" id="regist" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label">电子邮箱</label>
+                <div class="layui-input-block">
+                    <input type="text" name="username" required lay-verify="required|email" placeholder="请输入标题"
+                           autocomplete="off" class="layui-input"  >
+                </div>
+                <div class="layui-form-mid layui-word-aux" id="usName"></div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">输入密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" id="password" name="password" required lay-verify="required" placeholder="请输入密码"
+                           autocomplete="off" class="layui-input" onChange="chang2(this)">
+                </div>
+                <div class="layui-form-mid layui-word-aux" id="ps1"></div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">确认密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="passwordAgain" required lay-verify="required" placeholder="请输入密码"
+                           autocomplete="off" class="layui-input" onChange="chang3(this)">
+                </div>
+                <div class="layui-form-mid layui-word-aux" id="ps2"></div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo" onclick="form=document.getElementById('regist');form.action='/reg/'">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="layui-col-md4">
+
+    </div>
+</div>
+</body>
+</html>

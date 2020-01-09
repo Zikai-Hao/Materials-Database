@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * Created by Haozk on 2019/12/19
+ * 引入外部虚拟路径
  */
 @Configuration
 public class MyWebConfig implements WebMvcConfigurer {
