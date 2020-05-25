@@ -17,7 +17,7 @@ public interface SearchDAO {
     String SELECT_FIELDS = " id, " + INSERT_FIELDS;
 
     List<Molecule> selectCules(@Param("culeIds") List<Integer> culeIds,
-                                   @Param("count") int count);
+                               @Param("count") int count);
 
     @Select({"select ",SELECT_FIELDS," from ",TABLE_NAME," where id = #{id}"})
     Molecule selectMolecule(@Param("id") int id);

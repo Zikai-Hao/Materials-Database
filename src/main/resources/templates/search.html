@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>搜索</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="../../layuiadmin/style/template.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card layadmin-serach-main">
+                <div class="layui-card-header">
+                    <p style="font-size: 18px;">
+                        <span style="color: #01AAED">关键词${keyword}</span>
+                    </p>
+                    <p class="layadmin-font-em">耗时：350ms</p>
+                </div>
+                <div class="layui-card-body">
+                    <ul class="layadmin-serach-list layui-text">
+                        <div class="layui-fluid" id="LAY-flow-demo">
+                            <div class="layui-row layui-col-space15">
+                                <div class="layui-col-md12">
+                                    <div class="layui-card">
+                                        <div class="layui-card-body">
+                                            <ul class="flow-default" id="test-flow-auto"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ul>
+                    <div id="LAY-template-search-page" style="text-align: center;"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../layuiadmin/layui/layui.js"></script>
+<script type="text/javascript" src="/js/graph.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'flow'], function () {
+        var $ = layui.jquery;
+        var flow = layui.flow;
+        var i=1;
+
+        flow.load({
+            elem: '#test-flow-auto' //流加载容器
+            //,scrollElem: '#html' //滚动条所在元素，一般不用填，此处只是演示需要。
+            , isLazyimg: true
+            , done: function (page, next) { //执行下一页的回调
+
+                //模拟数据插入
+                setTimeout(function () {
+                    $.post('/result', {page: page, limit: 10, keyword: '${keyword}',}, function (res) {
+                        var lis = [];
+    /*lis.push('查询到\n' +
+        '              <strong>'+res.data.count+'</strong> 个结果')*/
+    layui.each(res.data.cules, function (index, item) {
+        lis.push('<li> <a href="" class="layui-serachlist-cover">' +
+            '<img src="../../layuiadmin/style/res/layui-logo.jpg">' +
+            '</a>' +
+            '<div class="layui-serachlist-text">' +
+            '<h3><a href="/detail">'+item.id+item.formula+'</a></h3>' +
+            '<p>作为 layui 官方推出的后台模板，从初版的饱受争议，到后续的埋头丰富，逐步用行动赢得了许多人的关注。目前 layuiAdmin 在国内后台系统应用市场，占据了相当大的份额，几乎已成为开发者的不二选择。这得益于 layui 本身所积累的用户规模，更得益于开发团队的付出，用我们的方式，用心做好一款产品。</p>' +
+            '<strong style="float: right;">'+i+'/'+res.data.count+'</strong>'+
+            '</div>' +
+            '</li>');
+        i++;
+    });
+
+    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+    next(lis.join(''), page < 10); //假设总页数为 10
+}, "json");
+}, 500);
+}
+});
+
+})
+;
+</script>
+</body>
+</html>

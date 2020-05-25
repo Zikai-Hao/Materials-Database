@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>搜索结果</title>
     <link rel="stylesheet" href="/css/ChemDoodleWeb.css" type="text/css">
+    <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
     <script type="text/javascript" src="/js/ChemDoodleWeb.js"></script>
     <script type="text/javascript" src="/js/graph.js"></script>
     <style type="text/css">
@@ -19,7 +20,7 @@
         }
 
         body {
-            background-color: #fffdfa;
+            background-color: #F0F0F0;
         }
 
         #apDiv2 {
@@ -60,7 +61,7 @@
             font-size: 16px;
             font-weight: bold;
             text-align: center;
-            background: #fffefd;
+            background: #f2f2f2;
         }
 
         #apDiv5 table {
@@ -96,7 +97,7 @@
             <div class="layui-row" style="height: 30px;">
                 <div id="apDiv3">
                     <button class="layui-btn  layui-btn-sm" style="color:white; background-color:green">
-                        <a href="\job\POSCAR.cif" download="${cif.occupancy[0][0]}.cif" style="color:white" >
+                        <a href="\job\POSCAR.cif" download="${cif.occupancy[0][0]}.cif" style="color:white">
                             "Download CIF"
                         </a>
                     </button>
@@ -107,34 +108,34 @@
             <div class="layui-row" style="height: 500px;">
                 <div id="apDiv5">
                     <table class="layui-table" height="494" border="1">
-                        <tr>
+                        <tr style="background-color: #eeeeee;">
                             <td width="420">Band Gap</td>
                         </tr>
-                        <tr>
+                        <tr style="background-color: #f2f2f2;">
                             <td>10</td>
                         </tr>
-                        <tr>
+                        <tr style="background-color: #eeeeee;">
                             <td>Final Magnetic Moment</td>
                         </tr>
-                        <tr>
+                        <tr style="background-color: #f2f2f2;">
                             <td>10</td>
                         </tr>
-                        <tr>
+                        <tr style="background-color: #eeeeee;">
                             <td>Formation Energy / Atom</td>
                         </tr>
-                        <tr>
+                        <tr style="background-color: #f2f2f2;">
                             <td>10</td>
                         </tr>
-                        <tr>
+                        <tr style="background-color: #eeeeee;">
                             <td>Density</td>
                         </tr>
-                        <tr>
+                        <tr style="background-color: #f2f2f2;">
                             <td>10</td>
                         </tr>
-                        <tr>
+                        <tr style="background-color: #eeeeee;">
                             <td>Space Group</td>
                         </tr>
-                        <tr>
+                        <tr style="background-color: #f2f2f2;">
                             <td>${cif._symmetry_space_group_name_H[1]}</td>
                         </tr>
                     </table>
@@ -146,35 +147,51 @@
             <div id="apDiv4">
                 <table class="layui-table" width="380" height="49" border="1">
                     <tr>
-                        <td width="360" height="33">Lattice parameter</td>
+                        <td width="360" height="33" style="background-color: #eeeeee;">Lattice parameter</td>
                     </tr>
                 </table>
                 <table class="layui-table" width="380" height="167" border="1">
                     <tr>
-                        <td>a</td>
-                        <td>${cif._cell_length_a[1]}</td>
-                        <td>α</td>
-                        <td>${cif._cell_angle_alpha[1]}</td>
+                        <td style="background-color: #eeeeee;">a</td>
+                        <td style="background-color: #f2f2f2;">${cif._cell_length_a[1]}</td>
+                        <td style="background-color: #eeeeee;">α</td>
+                        <td style="background-color: #f2f2f2;">${cif._cell_angle_alpha[1]}</td>
                     </tr>
                     <tr>
-                        <td>b</td>
-                        <td>${cif._cell_length_b[1]}</td>
-                        <td>β</td>
-                        <td>${cif._cell_angle_beta[1]}</td>
+                        <td style="background-color: #eeeeee;">b</td>
+                        <td style="background-color: #f2f2f2;">${cif._cell_length_b[1]}</td>
+                        <td style="background-color: #eeeeee;">β</td>
+                        <td style="background-color: #f2f2f2;">${cif._cell_angle_beta[1]}</td>
                     </tr>
                     <tr>
-                        <td>c</td>
-                        <td>${cif._cell_length_c[1]}</td>
-                        <td>γ</td>
-                        <td>${cif._cell_angle_gamma[1]}</td>
+                        <td style="background-color: #eeeeee;">c</td>
+                        <td style="background-color: #f2f2f2;">${cif._cell_length_c[1]}</td>
+                        <td style="background-color: #eeeeee;">γ</td>
+                        <td style="background-color: #f2f2f2;">${cif._cell_angle_gamma[1]}</td>
                     </tr>
                 </table>
-                <div style="height:274px;width:380px;overflow:scroll">
+                <div style="height:255px;width:380px;overflow:scroll">
                     <table class="layui-table" id="scroll" width="380" height="49" border="1">
 
 
                     </table>
 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-card-body">
+                <div class="layui-row">
+                    <div class="layui-col-sm12">
+                        <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade"
+                             lay-filter="LAY-index-pagetwo">
+                            <div carousel-item id="LAY-index-pagetwo">
+                                <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -186,7 +203,99 @@
 
     </center>
 </div>
+<script src="/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index','admin','carousel','echarts','table'], function(){
+        var $ = layui.$
+            ,carousel = layui.carousel
+            ,admin = layui.admin
+            ,echarts = layui.echarts
+            ,element = layui.element
+            ,device = layui.device();
 
+        $('.layadmin-carousel').each(function(){
+            var othis = $(this);
+            carousel.render({
+                elem: this
+                ,width: '100%'
+                ,arrow: 'none'
+                ,interval: othis.data('interval')
+                ,autoplay: othis.data('autoplay') === true
+                ,trigger: (device.ios || device.android) ? 'click' : 'hover'
+                ,anim: othis.data('anim')
+            });
+        });
+
+        element.render('progress');
+
+        var echartsApp = [], options = [
+            {
+                tooltip : {
+                    trigger: 'axis'
+                },
+                calculable : true,
+                legend: {
+                    data:['访问量','下载量','平均访问量']
+                },
+
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        name : '访问量',
+                        axisLabel : {
+                            formatter: '{value} 万'
+                        }
+                    },
+                    {
+                        type : 'value',
+                        name : '下载量',
+                        axisLabel : {
+                            formatter: '{value} 万'
+                        }
+                    }
+                ],
+                series : [
+                    {
+                        name:'访问量',
+                        type:'line',
+                        data:[900, 850, 950, 1000, 1100, 1050, 1000, 1150, 1250, 1370, 1250, 1100]
+                    },
+                    {
+                        name:'下载量',
+                        type:'line',
+                        yAxisIndex: 1,
+                        data:[850, 850, 800, 950, 1000, 950, 950, 1150, 1100, 1240, 1000, 950]
+                    },
+                    {
+                        name:'平均访问量',
+                        type:'line',
+                        data:[870, 850, 850, 950, 1050, 1000, 980, 1150, 1000, 1300, 1150, 1000]
+                    }
+                ]
+            }
+        ]
+            ,elemDataView = $('#LAY-index-pagetwo').children('div')
+            ,renderDataView = function(index){
+            echartsApp[index] = echarts.init(elemDataView[index], layui.echartsTheme);
+            echartsApp[index].setOption(options[index]);
+            window.onresize = echartsApp[index].resize;
+        };
+        //没找到DOM，终止执行
+        if(!elemDataView[0]) return;
+        renderDataView(0);
+
+    });
+</script>
 <script>
     var x;
     var color;
@@ -214,12 +323,7 @@
 
 </script>
 
-<script>
-    function dowanload(url) {
 
-    }
-
-</script>
 <script>
     var y;
     var lst = [<#list cif.occupancy as elems>["${elems[0]}",${elems[2]},${elems[3]},${elems[4]}], </#list>];

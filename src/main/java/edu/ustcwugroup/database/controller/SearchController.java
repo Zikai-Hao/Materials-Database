@@ -2,7 +2,7 @@ package edu.ustcwugroup.database.controller;
 
 import edu.ustcwugroup.database.model.Molecule;
 import edu.ustcwugroup.database.model.ViewObject;
-import edu.ustcwugroup.database.service.CIFReadService;
+import edu.ustcwugroup.database.service.FileReadUtil;
 import edu.ustcwugroup.database.service.SearchService;
 import edu.ustcwugroup.database.util.JsonUtil;
 import org.apache.ibatis.annotations.Param;
@@ -30,7 +30,7 @@ public class SearchController {
     SearchService searchService;
 
     @Autowired
-    CIFReadService cifReadService;
+    FileReadUtil fileReadUtil;
 
     @RequestMapping({"/result"})
     @ResponseBody
@@ -40,6 +40,7 @@ public class SearchController {
         try {
             ViewObject viewObject = searchService.searchMolecules(keyword,(page-1)*limit,limit,"<em>","</em>");
             model.addAttribute("vo",viewObject);
+
             logger.info(""+viewObject.get("count"));
             return JsonUtil.getJSONString(0,viewObject.getObjs());
 
@@ -50,15 +51,13 @@ public class SearchController {
         return "error";
     }
     @RequestMapping({"/search"})
-
     public String search(Model model, @RequestParam("keyword") String keyword){
         try {
             model.addAttribute("keyword",keyword);
-
         }catch (Exception e){
             logger.error("keyword搜索失败"+e.getMessage());
         }
-        return "result";
+        return "search";
     }
 
     @RequestMapping({"/adminsearch"})
@@ -74,7 +73,7 @@ public class SearchController {
     @RequestMapping({"/detail"})
     public String detail(Model model){
         try {
-            model.addAttribute("cif",cifReadService.CIFRead("F:\\job\\POSCAR.cif"));
+            model.addAttribute("cif",fileReadUtil.CIFRead("F:\\job\\POSCAR.cif"));
         }catch (Exception e){
             logger.error("keyword搜索失败"+e.getMessage());
         }

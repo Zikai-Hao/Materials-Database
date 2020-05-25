@@ -3099,7 +3099,7 @@ var ChemDoodle = function () {
                         };
                     a = a("abort");
                     try {
-                        f.send(e.hasContent && e.data || null)
+                        //f.send(e.hasContent && e.data || null)
                     } catch (pb) {
                         if (a) throw pb;
                     }

@@ -10,7 +10,7 @@ function graph_show(cif) {
 	// set the line widths for the unit cell to be 1.5 pixels
 	crystalTransformer.specs.crystals_unitCellLineWidth = 1.5;
 	// set the unit cell line color to white
-	crystalTransformer.specs.shapes_color = 'white';
+	crystalTransformer.specs.shapes_color = 'black';
 	// set the unit cell line width to 2
 	crystalTransformer.specs.shapes_lineWidth = 2;
 
