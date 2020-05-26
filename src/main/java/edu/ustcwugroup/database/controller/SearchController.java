@@ -11,10 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.swing.text.View;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,10 +76,27 @@ public class SearchController {
     public String detail(Model model){
         try {
             model.addAttribute("cif",fileReadUtil.CIFRead("F:\\job\\POSCAR.cif"));
+            model.addAttribute("bands",fileReadUtil.bandsRead("F:\\job\\bands.dat"));
         }catch (Exception e){
             logger.error("keyword搜索失败"+e.getMessage());
         }
         return "resultDetail";
     }
+
+    @GetMapping({"/bands"})
+    @ResponseBody
+    public String bands(Model model, @RequestParam("id") int id){
+        try {
+            ViewObject vo = new ViewObject();
+            vo.set("bands",fileReadUtil.bandsRead("F:\\job\\bands.dat"));
+            return JsonUtil.getJSONString(0, vo.getObjs());
+        }catch (Exception e){
+            logger.error("keyword搜索失败"+e.getMessage());
+
+        }
+        return "error";
+    }
+
+
 
 }
